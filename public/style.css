@@ -1,0 +1,270 @@
+body {
+  margin: 0;
+  background-color: #F3F3F3;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 66vh;
+}
+
+.splash-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 5rem;
+  padding: .5em 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  font-size: inherit;
+  background-color: hsl(30, 100%, 50%);
+  padding: .5em 1em;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: hsl(30, 100%, 40%);
+}
+
+.splash-btn {
+  font-size: 2rem;
+  margin-left: 2rem;
+}
+
+.splash-btn:first-child {
+  margin-left: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.battleship-grid {
+  margin: 2vmin;
+  display: grid;
+  background-color: hsl(200, 100%, 50%);
+  grid-template-rows: repeat(10, 4.6vmin);
+  grid-template-columns: repeat(10, 4.6vmin);
+}
+
+.grid-computer>.taken,
+.grid-computer>.acertou {
+  background-color: hsl(200, 100%, 50%) !important;
+  border-radius: 0 !important;
+}
+
+.taken,
+.ship {
+  position: relative;
+  /* background-color: hsl(0, 0%, 80%); */
+}
+
+.taken.horizontal::before {
+  border-left: none;
+  border-right: none;
+}
+
+.taken.vertical::before {
+  border-top: none;
+  border-bottom: none;
+}
+
+.grid-display {
+  display: flex;
+}
+
+.ship>div {
+  width: 4.6vmin;
+  height: 4.6vmin;
+}
+
+.ship {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1vmin;
+  width: calc(4.6vmin * var(--width, 1));
+  height: calc(4.6vmin * var(--height, 1));
+}
+
+.battleship-grid div {
+  border: 7px solid hsla(0, 0%, 100%, .2);
+}
+
+.battleship-grid div.submarine{
+  background-color: green;
+}
+
+.battleship-grid div.destroyer{
+  background-color: black;
+}
+
+.battleship-grid div.cruiser{
+  background-color: blue;
+}
+
+.battleship-grid div.battleship{
+  background-color: blueviolet;
+}
+
+.battleship-grid div.carrier{
+  background-color: rgba(255, 255, 0, 0.671) !important;
+}
+
+.destroyer-container {
+  --width: 2;
+  background-color: black;
+}
+
+.destroyer-container-vertical {
+  --height: 2;
+  --width: 1;
+  background-color: black;
+}
+
+.submarine-container,
+.cruiser-container {
+  --width: 3;
+}
+
+.cruiser-container{
+  background-color: blue;
+}
+
+.submarine-container{
+  background-color: green;
+}
+
+
+.submarine-container-vertical,
+.cruiser-container-vertical {
+  --height: 3;
+  --width: 1;
+}
+
+.cruiser-container-vertical{
+  background-color: blue;
+}
+
+.submarine-container-vertical{
+  background-color: green;
+}
+
+.battleship-container {
+  --width: 4;
+  background-color: blueviolet;
+}
+
+.battleship-container-vertical {
+  --height: 4;
+  --width: 1;
+  background-color: blueviolet;
+}
+
+.carrier-container {
+  --width: 5;
+  background-color: yellow;
+}
+
+.carrier-container-vertical {
+  --height: 5;
+  --width: 1;
+  background-color: yellow;
+}
+
+.hidden-info {
+  font-size: 1.5rem;
+  align-items: center;
+  flex-direction: column;
+}
+
+.info-text {
+  margin: 1rem;
+}
+
+.errou,
+.acertou {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.acertou::after,
+.errou::after {
+  content: '';
+  position: absolute;
+  width: 2vmin;
+  height: 2vmin;
+}
+
+.errou::after {
+  background-color: white;
+}
+
+.acertou::after {
+  background-color: red;
+}
+
+.errou::before {
+  content: '';
+  position: absolute;
+  border: 1vmin solid white;
+  width: 2vmin;
+  height: 2vmin;
+}
+
+.player {
+  margin: 2vmin;
+}
+
+.p1 {
+  margin-right: 20vmin;
+}
+
+.p2 {
+  margin-left: 20vmin;
+}
+
+.connected,
+.ready {
+  font-weight: normal;
+  opacity: .25;
+  text-decoration: line-through;
+}
+
+.connected.active,
+.ready.active {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.chat {
+  width: 30vmin;
+  margin: 2vmin;
+  height: 38vmin;
+  overflow: auto;
+  background-color: hsla(200, 100%, 50%, 0.541);
+}
+
+.inputtext{
+  width: 30vmin;
+  margin-left: 2vmin;
+}
