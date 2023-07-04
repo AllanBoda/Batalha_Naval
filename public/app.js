@@ -11,10 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const carrier = document.querySelector('.carrier-container')
   const startButton = document.querySelector('#start')
   const rotateButton = document.querySelector('#rotate')
-  const botaoChat = document.querySelector('#botaochat')
-  const inputTexto = document.querySelector('#inputtext')
-  const caixachat = document.querySelector('#chat')
   const turnDisplay = document.querySelector('#whose-go')
+  const infoDisplay2 = document.querySelector('#info2')
   const infoDisplay = document.querySelector('#info')
   const setupButtons = document.getElementById('setup-buttons')
   const userSquares = []
@@ -44,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let carrierCount = 0
 
   function iniciarJogo() {
-    chat("esperando outro jogador...")
+    infoDisplay2.innerHTML = "esperando outro jogador..."
     ws.addEventListener("message", ({ data }) => {
       const packet = JSON.parse(data);
 
@@ -55,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
           playerNum = parseInt(packet.data)
           partidaUUID = packet.PID
           if (playerNum === 1) jogadorAtual = "enemy"
-          if(playerNum === 0){inputTexto.style.color = 'blue'}else{inputTexto.style.color = 'red'}
 
           console.log("Seu playerNum: ", playerNum)
 
@@ -114,9 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
           case "vitoria-wo":
             if(isGameOver==false && podeWO==true){wo()}
             break;
-          case "resposta-chat":
-            chat(packet.data, packet.cor)
-            break;
         }
       }
     });
@@ -150,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let player = `.p${parseInt(num) + 1}`
       document.querySelector(`${player} .connected`).classList.toggle('active')
       if(document.querySelector('.p2 .connected').classList.contains('active')){
-          chat("oponente conectado!")
+        infoDisplay2.innerHTML = "oponente conectado!"
       }
 
       if (parseInt(num) === playerNum) document.querySelector(player).style.fontWeight = 'bold'
@@ -189,52 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   rotateButton.addEventListener('click', rotate)
-
-  function chat(texto, cor=-1) {
-       let item = document.createElement('option')
-       item.text = texto
-       switch (cor) {
-        case -1:
-          item.style.color = 'black'
-          break;
-        case 0:
-          item.style.color = 'blue'
-          break;
-        case 1:
-          item.style.color = 'red'
-          break;
-       }
-       caixachat.appendChild(item)
-       caixachat.scrollTop = caixachat.scrollHeight;
-  }
-
-  function enviarChat() {
-    if(inputTexto.value.length == 0){
-      window.alert('digite algum texto!')
-   }
-   else{
-       //caixachat.innerHTML = ''
-       let n = inputTexto.value
-       ws.send(JSON.stringify({
-        type: 'chat',
-        data: n,
-        PID: partidaUUID,
-        cor: playerNum,
-      }))
-   }
-    //enviar pro servidor
-  }
-
-  botaoChat.addEventListener('click', enviarChat)
-  window.addEventListener("keydown", function (event) {
-  
-    if (event.key !== undefined) {
-      console.log("tecla:", event.key)
-      if(event.key == 'Enter'){enviarChat()}
-    } else if (event.which !== undefined) {
-      // Handle the event with KeyboardEvent.which
-    }
-  });
 
   //Mover o navio do usuario (arrastar)
   ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
@@ -467,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function wo() {
     console.log("WO")
     infoDisplay.innerHTML = "Você venceu por W.O. (Atualize a página para jogar novamente)"
-    chat("o outro jogador saiu..")
+    infoDisplay2.innerHTML = "o outro jogador saiu.."
     setupButtons.style.display = 'none'
     gameOver()
   }

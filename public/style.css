@@ -255,16 +255,3 @@ body {
   opacity: 1;
   text-decoration: none;
 }
-
-.chat {
-  width: 30vmin;
-  margin: 2vmin;
-  height: 38vmin;
-  overflow: auto;
-  background-color: hsla(200, 100%, 50%, 0.541);
-}
-
-.inputtext{
-  width: 30vmin;
-  margin-left: 2vmin;
-}
