@@ -4,11 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const oponentGrid = document.querySelector('.grid-computer')
   const displayGrid = document.querySelector('.grid-display')
   const ships = document.querySelectorAll('.ship')
-  const destroyer = document.querySelector('.destroyer-container')
-  const submarine = document.querySelector('.submarine-container')
-  const cruiser = document.querySelector('.cruiser-container')
-  const battleship = document.querySelector('.battleship-container')
-  const carrier = document.querySelector('.carrier-container')
+  const submarino = document.querySelector('.submarino-container')
+  const contra_torpedeiro = document.querySelector('.contra-torpedeiro-container')
+  const navios_tanque = document.querySelector('.navios-tanque-container')
+  const porta_avioe = document.querySelector('.porta-avioe-container')
   const startButton = document.querySelector('#start')
   const rotateButton = document.querySelector('#rotate')
   const turnDisplay = document.querySelector('#whose-go')
@@ -35,11 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   iniciarJogo()
 
-  let destroyerCount = 0
-  let submarineCount = 0
-  let cruiserCount = 0
-  let battleshipCount = 0
-  let carrierCount = 0
+  let submarinoCount = 0
+  let contra_torpedeiroCount = 0
+  let navios_tanqueCount = 0
+  let porta_avioeCount = 0
 
   function iniciarJogo() {
     infoDisplay2.innerHTML = "esperando outro jogador..."
@@ -161,27 +159,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  document.addEventListener('keypress', event => {
+      if (event.key == 'r' || event.key == 'R') {
+        if (isHorizontal) {
+          submarino.classList.toggle('submarino-container-vertical')
+          contra_torpedeiro.classList.toggle('contra-torpedeiro-container-vertical')
+          navios_tanque.classList.toggle('navios-tanque-container-vertical')
+          porta_avioe.classList.toggle('porta-avioe-container-vertical')
+          isHorizontal = false
+          return
+        }
+        if (!isHorizontal) {
+          submarino.classList.toggle('submarino-container-vertical')
+          contra_torpedeiro.classList.toggle('contra-torpedeiro-container-vertical')
+          navios_tanque.classList.toggle('navios-tanque-container-vertical')
+          porta_avioe.classList.toggle('porta-avioe-container-vertical')
+          isHorizontal = true
+          return
+        }
+      }
+    })
+
   //Rotacionar os navios
   function rotate() {
     if (isHorizontal) {
-      destroyer.classList.toggle('destroyer-container-vertical')
-      submarine.classList.toggle('submarine-container-vertical')
-      cruiser.classList.toggle('cruiser-container-vertical')
-      battleship.classList.toggle('battleship-container-vertical')
-      carrier.classList.toggle('carrier-container-vertical')
+      submarino.classList.toggle('submarino-container-vertical')
+      contra_torpedeiro.classList.toggle('contra-torpedeiro-container-vertical')
+      navios_tanque.classList.toggle('navios-tanque-container-vertical')
+      porta_avioe.classList.toggle('porta-avioe-container-vertical')
       isHorizontal = false
       return
     }
     if (!isHorizontal) {
-      destroyer.classList.toggle('destroyer-container-vertical')
-      submarine.classList.toggle('submarine-container-vertical')
-      cruiser.classList.toggle('cruiser-container-vertical')
-      battleship.classList.toggle('battleship-container-vertical')
-      carrier.classList.toggle('carrier-container-vertical')
+      submarino.classList.toggle('submarino-container-vertical')
+      contra_torpedeiro.classList.toggle('contra-torpedeiro-container-vertical')
+      navios_tanque.classList.toggle('navios-tanque-container-vertical')
+      porta_avioe.classList.toggle('porta-avioe-container-vertical')
       isHorizontal = true
       return
     }
   }
+
   rotateButton.addEventListener('click', rotate)
 
   //Mover o navio do usuario (arrastar)
@@ -308,11 +326,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const enemySquare = oponentGrid.querySelector(`div[data-id='${tiroRealizado}']`)
     const obj = Object.values(classList)
     if (!enemySquare.classList.contains('acertou') && jogadorAtual === 'user' && !isGameOver) {
-      if (obj.includes('destroyer')) ++destroyerCount
-      if (obj.includes('submarine')) ++submarineCount
-      if (obj.includes('cruiser')) ++cruiserCount
-      if (obj.includes('battleship')) ++battleshipCount
-      if (obj.includes('carrier')) ++carrierCount
+      if (obj.includes('submarino')) ++submarinoCount
+      if (obj.includes('contra_torpedeiro')) ++contra_torpedeiroCount
+      if (obj.includes('navios_tanque')) ++navios_tanqueCount
+      if (obj.includes('porta_avioe')) ++porta_avioeCount
     }
     if (obj.includes('taken')) {
       enemySquare.classList.add('acertou')
@@ -325,21 +342,19 @@ document.addEventListener('DOMContentLoaded', () => {
     //jogadorAtual = 'enemy'
   }
 
-  let oponentDestroyerCount = 0
-  let oponentSubmarineCount = 0
-  let oponentCruiserCount = 0
-  let oponentBattleshipCount = 0
-  let oponentCarrierCount = 0
+  let oponentSubmarinoCount = 0
+  let oponentContra_torpedeiroCount = 0
+  let oponentNavios_tanqueCount = 0
+  let oponentPorta_avioeCount = 0
 
   function vezOponente(square) {
     if (!userSquares[square].classList.contains('acertou')) {
       const hit = userSquares[square].classList.contains('taken')
       userSquares[square].classList.add(hit ? 'acertou' : 'errou')
-      if (userSquares[square].classList.contains('destroyer')) ++oponentDestroyerCount
-      if (userSquares[square].classList.contains('submarine')) ++oponentSubmarineCount
-      if (userSquares[square].classList.contains('cruiser')) ++oponentCruiserCount
-      if (userSquares[square].classList.contains('battleship')) ++oponentBattleshipCount
-      if (userSquares[square].classList.contains('carrier')) ++oponentCarrierCount
+      if (userSquares[square].classList.contains('submarino')) ++oponentSubmarinoCount
+      if (userSquares[square].classList.contains('contra_torpedeiro')) ++oponentContra_torpedeiroCount
+      if (userSquares[square].classList.contains('navios_tanque')) ++oponentNavios_tanqueCount
+      if (userSquares[square].classList.contains('porta_avioe')) ++oponentPorta_avioeCount
       checarPorVitorias()
     }
     const hit = userSquares[square].classList.contains('taken')
@@ -348,52 +363,44 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checarPorVitorias() {
-    if (destroyerCount === 2) {
-      infoDisplay.innerHTML = `Você afundou o destroyer do oponente`
-      destroyerCount = 10
-    }
-    if (submarineCount === 3) {
+    if (submarinoCount === 2) {
       infoDisplay.innerHTML = `Você afundou o submarino do oponente`
-      submarineCount = 10
+      submarinoCount = 10
     }
-    if (cruiserCount === 3) {
-      infoDisplay.innerHTML = `Você afundou o crusador do oponente`
-      cruiserCount = 10
+    if (contra_torpedeiroCount === 3) {
+      infoDisplay.innerHTML = `Você afundou o submarino do oponente`
+      contra_torpedeiroCount = 10
     }
-    if (battleshipCount === 4) {
+    if (navios_tanqueCount === 4) {
       infoDisplay.innerHTML = `Você afundou o navio de batalha do oponente`
-      battleshipCount = 10
+      navios_tanqueCount = 10
     }
-    if (carrierCount === 5) {
+    if (porta_avioeCount === 5) {
       infoDisplay.innerHTML = `Você afundou o porta-aviões do oponente`
-      carrierCount = 10
+      porta_avioeCount = 10
     }
-    if (oponentDestroyerCount === 2) {
-      infoDisplay.innerHTML = `O oponente afundou seu destroyer`
-      oponentDestroyerCount = 10
-    }
-    if (oponentSubmarineCount === 3) {
+    if (oponentSubmarinoCount === 2) {
       infoDisplay.innerHTML = `O oponente afundou seu submarino`
-      oponentSubmarineCount = 10
+      oponentSubmarinoCount = 10
     }
-    if (oponentCruiserCount === 3) {
-      infoDisplay.innerHTML = `O oponente afundou seu crusador`
-      oponentCruiserCount = 10
+    if (oponentContra_torpedeiroCount === 3) {
+      infoDisplay.innerHTML = `O oponente afundou seu submarino`
+      oponentContra_torpedeiroCount = 10
     }
-    if (oponentBattleshipCount === 4) {
+    if (oponentNavios_tanqueCount === 4) {
       infoDisplay.innerHTML = `O oponente afundou seu navio de batalha`
-      oponentBattleshipCount = 10
+      oponentNavios_tanqueCount = 10
     }
-    if (oponentCarrierCount === 5) {
+    if (oponent_orta_avioeCount === 5) {
       infoDisplay.innerHTML = `O oponente afundou seu porta-aviões`
-      oponentCarrierCount = 10
+      oponentPorta_avioeCount = 10
     }
 
-    if ((destroyerCount + submarineCount + cruiserCount + battleshipCount + carrierCount) === 50) {
+    if ((submarinoCount + contra_torpedeiroCount + navios_tanqueCount + porta_avioeCount) === 40) {
       infoDisplay.innerHTML = "Você venceu! (Atualize a página para jogar novamente)"
       gameOver()
     }
-    if ((oponentDestroyerCount + oponentSubmarineCount + oponentCruiserCount + oponentBattleshipCount + oponentCarrierCount) === 50) {
+    if ((oponentSubmarinoCount + oponentContra_torpedeiroCount + oponentNavios_tanqueCount + oponentPorta_avioeCount) === 40) {
       infoDisplay.innerHTML = `Você perdeu, mais sorte na próxima (Atualize a página para jogar novamente)`
       podeWO = false
       gameOver()

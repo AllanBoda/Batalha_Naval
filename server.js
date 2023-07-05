@@ -2,7 +2,7 @@ const express = require('express')
 const WebSocket = require('ws');
 const uuid = require('uuid');
 const path = require('path')
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 const app = express()
 
 // Definir pasta static

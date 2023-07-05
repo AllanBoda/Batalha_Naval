@@ -109,38 +109,34 @@ body {
   border: 7px solid hsla(0, 0%, 100%, .2);
 }
 
-.battleship-grid div.submarine{
-  background-color: green;
+.battleship-grid div.contra-torpedeiro{
+  background-color: rgb(192, 0, 0);
 }
 
-.battleship-grid div.destroyer{
-  background-color: black;
+.battleship-grid div.submarino{
+  background-color: rgb(0, 158, 194);
 }
 
-.battleship-grid div.cruiser{
-  background-color: blue;
+.battleship-grid div.navios-tanque{
+  background-color: rgb(0, 5, 151);
 }
 
-.battleship-grid div.battleship{
-  background-color: blueviolet;
+.battleship-grid div.porta-avioe{
+  background-color: rgb(0, 0, 0) !important;
 }
 
-.battleship-grid div.carrier{
-  background-color: rgba(255, 255, 0, 0.671) !important;
-}
-
-.destroyer-container {
+.submarino-container {
   --width: 2;
-  background-color: black;
+  background-color: rgb(0, 158, 194);
 }
 
-.destroyer-container-vertical {
+.submarino-container-vertical {
   --height: 2;
   --width: 1;
-  background-color: black;
+  background-color: rgb(0, 158, 194);
 }
 
-.submarine-container,
+.contra-torpedeiro-container,
 .cruiser-container {
   --width: 3;
 }
@@ -149,45 +145,41 @@ body {
   background-color: blue;
 }
 
-.submarine-container{
-  background-color: green;
+.contra-torpedeiro-container{
+  background-color: rgb(192, 0, 0);
 }
 
 
-.submarine-container-vertical,
+.contra-torpedeiro-container-vertical,
 .cruiser-container-vertical {
   --height: 3;
   --width: 1;
 }
 
-.cruiser-container-vertical{
-  background-color: blue;
+.contra-torpedeiro-container-vertical{
+  background-color: rgb(192, 0, 0);
 }
 
-.submarine-container-vertical{
-  background-color: green;
-}
-
-.battleship-container {
+.navios-tanque-container {
   --width: 4;
-  background-color: blueviolet;
+  background-color: rgb(0, 5, 151);
 }
 
-.battleship-container-vertical {
+.navios-tanque-container-vertical {
   --height: 4;
   --width: 1;
-  background-color: blueviolet;
+  background-color: rgb(0, 5, 151);
 }
 
-.carrier-container {
+.porta-avioe-container {
   --width: 5;
-  background-color: yellow;
+  background-color: rgb(0, 0, 0);
 }
 
-.carrier-container-vertical {
+.porta-avioe-container-vertical {
   --height: 5;
   --width: 1;
-  background-color: yellow;
+  background-color: rgb(0, 0, 0);
 }
 
 .hidden-info {
@@ -246,12 +238,11 @@ body {
 .connected,
 .ready {
   font-weight: normal;
-  opacity: .25;
-  text-decoration: line-through;
+  color: red;
 }
 
 .connected.active,
 .ready.active {
-  opacity: 1;
   text-decoration: none;
+  color: rgb(0, 203, 0);
 }

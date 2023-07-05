@@ -5,6 +5,7 @@
     <title>Batalha Naval</title>
     <link rel="stylesheet" href="style.css">
     <script src="app.js" charset="utf-8"></script>
+    <script src="drag.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="container">
@@ -20,30 +21,31 @@
         <div class="ready">Pronto</div>
       </div>
     </div>
+    <div class="container">  
 
-    <div class="container">
-      <div class="battleship-grid grid-user"></div>
-      <div class="battleship-grid grid-computer"></div>
+      <div class="battleship-grid grid-user">
+      </div>
+      <div class="battleship-grid grid-computer">
+      </div>
+      
     </div>
 
     <div class="container hidden-info">
       <div class="setup-buttons" id="setup-buttons">
         <button id="start" class="btn">Iniciar Jogo</button>
-        <button id="rotate" class="btn">Rotacionar Embarcações</button>
+        <button id="rotate" class="btn">Rotacionar (R)</button>
       </div>
       <h3 id="whose-go" class="info-text"></h3>
       <h3 id="info" class="info-text"></h3>
       <h1 id="info2" class="info-text"></h1>
     </div>
-
-    <div class="container">
-      <div class="grid-display">
-        <div class="ship destroyer-container" draggable="true"><div id="destroyer-0"></div><div id="destroyer-1"></div></div>
-        <div class="ship submarine-container" draggable="true"><div id="submarine-0"></div><div id="submarine-1"></div><div id="submarine-2"></div></div>
-        <div class="ship cruiser-container" draggable="true"><div id="cruiser-0"></div><div id="cruiser-1"></div><div id="cruiser-2"></div></div>
-        <div class="ship battleship-container" draggable="true"><div id="battleship-0"></div><div id="battleship-1"></div><div id="battleship-2"></div><div id="battleship-3"></div></div>
-        <div class="ship carrier-container" draggable="true"><div id="carrier-0"></div><div id="carrier-1"></div><div id="carrier-2"></div><div id="carrier-3"></div><div id="carrier-4"></div></div>
-      </div>
+<div class="container">
+    <div class="grid-display">
+      <div class="ship submarino-container" draggable="true"><div id="submarino-0"></div><div id="submarino-1"></div></div>
+      <div class="ship contra-torpedeiro-container" draggable="true"><div id="contra-torpedeiro-0"></div><div id="contra-torpedeiro-1"></div><div id="contra-torpedeiro-2"></div></div>
+      <div class="ship navios-tanque-container" draggable="true"><div id="navios-tanque-0"></div><div id="navios-tanque-1"></div><div id="navios-tanque-2"></div><div id="navios-tanque-3"></div></div>
+      <div class="ship porta-avioe-container" draggable="true"><div id="porta-avioe-0"></div><div id="porta-avioe-1"></div><div id="porta-avioe-2"></div><div id="porta-avioe-3"></div><div id="porta-avioe-4"></div></div>
     </div>
+</div>    
   </body>
 </html>
