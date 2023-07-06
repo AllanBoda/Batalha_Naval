@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function wo() {
     console.log("WO")
-    infoDisplay.innerHTML = "Você venceu por W.O. (Atualize a página para jogar novamente)"
+    infoDisplay.innerHTML = "Você venceu por W.O."
     chat("o outro jogador saiu..")
     setupButtons.style.display = 'none'
     gameOver()
