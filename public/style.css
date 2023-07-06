@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #F3F3F3;
+  background-color: #8b6600;
   overflow-x: hidden;
 }
 
@@ -29,7 +29,8 @@ body {
 
 .btn {
   font-size: inherit;
-  background-color: hsl(30, 100%, 50%);
+  background-color: hsl(112, 88%, 48%);
+  border-radius: 50px;
   padding: .5em 1em;
   outline: none;
   border: none;
@@ -109,34 +110,38 @@ body {
   border: 7px solid hsla(0, 0%, 100%, .2);
 }
 
-.battleship-grid div.contra-torpedeiro{
-  background-color: rgb(192, 0, 0);
+.battleship-grid div.contra-torpedeiros{
+  background-color: green;
 }
 
 .battleship-grid div.submarino{
-  background-color: rgb(0, 158, 194);
+  background-color: black;
 }
 
-.battleship-grid div.navios-tanque{
-  background-color: rgb(0, 5, 151);
+.battleship-grid div.cruiser{
+  background-color: blue;
 }
 
-.battleship-grid div.porta-avioe{
-  background-color: rgb(0, 0, 0) !important;
+.battleship-grid div.navio-tanque{
+  background-color: blueviolet;
+}
+
+.battleship-grid div.porta-avioes{
+  background-color: rgba(255, 255, 0, 0.671) !important;
 }
 
 .submarino-container {
   --width: 2;
-  background-color: rgb(0, 158, 194);
+  background-color: black;
 }
 
 .submarino-container-vertical {
   --height: 2;
   --width: 1;
-  background-color: rgb(0, 158, 194);
+  background-color: black;
 }
 
-.contra-torpedeiro-container,
+.contra-torpedeiros-container,
 .cruiser-container {
   --width: 3;
 }
@@ -145,41 +150,45 @@ body {
   background-color: blue;
 }
 
-.contra-torpedeiro-container{
-  background-color: rgb(192, 0, 0);
+.contra-torpedeiros-container{
+  background-color: green;
 }
 
 
-.contra-torpedeiro-container-vertical,
+.contra-torpedeiros-container-vertical,
 .cruiser-container-vertical {
   --height: 3;
   --width: 1;
 }
 
-.contra-torpedeiro-container-vertical{
-  background-color: rgb(192, 0, 0);
+.cruiser-container-vertical{
+  background-color: blue;
 }
 
-.navios-tanque-container {
+.contra-torpedeiros-container-vertical{
+  background-color: green;
+}
+
+.navio-tanque-container {
   --width: 4;
-  background-color: rgb(0, 5, 151);
+  background-color: blueviolet;
 }
 
-.navios-tanque-container-vertical {
+.navio-tanque-container-vertical {
   --height: 4;
   --width: 1;
-  background-color: rgb(0, 5, 151);
+  background-color: blueviolet;
 }
 
-.porta-avioe-container {
+.porta-avioes-container {
   --width: 5;
-  background-color: rgb(0, 0, 0);
+  background-color: yellow;
 }
 
-.porta-avioe-container-vertical {
+.porta-avioes-container-vertical {
   --height: 5;
   --width: 1;
-  background-color: rgb(0, 0, 0);
+  background-color: yellow;
 }
 
 .hidden-info {
@@ -245,4 +254,12 @@ body {
 .ready.active {
   text-decoration: none;
   color: rgb(0, 203, 0);
+}
+
+.chat {
+  width: 30vmin;
+  margin: 2vmin;
+  height: 38vmin;
+  overflow: auto;
+  background-color: hsl(112, 88%, 48%);
 }
