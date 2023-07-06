@@ -5,13 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const displayGrid = document.querySelector('.grid-display')
   const ships = document.querySelectorAll('.ship')
   const submarino = document.querySelector('.submarino-container')
-  const contra_torpedeiro = document.querySelector('.contra-torpedeiro-container')
-  const navios_tanque = document.querySelector('.navios-tanque-container')
-  const porta_avioe = document.querySelector('.porta-avioe-container')
+  const contratorpedeiros = document.querySelector('.contra-torpedeiros-container')
+  const navio_tanque = document.querySelector('.navio-tanque-container')
+  const porta_avioes = document.querySelector('.porta-avioes-container')
   const startButton = document.querySelector('#start')
   const rotateButton = document.querySelector('#rotate')
+  const caixachat = document.querySelector('#chat')
   const turnDisplay = document.querySelector('#whose-go')
-  const infoDisplay2 = document.querySelector('#info2')
   const infoDisplay = document.querySelector('#info')
   const setupButtons = document.getElementById('setup-buttons')
   const userSquares = []
@@ -35,12 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarJogo()
 
   let submarinoCount = 0
-  let contra_torpedeiroCount = 0
-  let navios_tanqueCount = 0
-  let porta_avioeCount = 0
+  let contratorpedeirossCount = 0
+  let cruiserCount = 0
+  let navio_tanqueCount = 0
+  let porta_avioesCount = 0
 
   function iniciarJogo() {
-    infoDisplay2.innerHTML = "esperando outro jogador..."
+    chat("esperando outro jogador...")
     ws.addEventListener("message", ({ data }) => {
       const packet = JSON.parse(data);
 
@@ -109,6 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
           case "vitoria-wo":
             if(isGameOver==false && podeWO==true){wo()}
             break;
+          case "resposta-chat":
+            chat(packet.data, packet.cor)
+            break;
         }
       }
     });
@@ -142,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let player = `.p${parseInt(num) + 1}`
       document.querySelector(`${player} .connected`).classList.toggle('active')
       if(document.querySelector('.p2 .connected').classList.contains('active')){
-        infoDisplay2.innerHTML = "oponente conectado!"
+          chat("oponente conectado!")
       }
 
       if (parseInt(num) === playerNum) document.querySelector(player).style.fontWeight = 'bold'
@@ -159,48 +163,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.addEventListener('keypress', event => {
-      if (event.key == 'r' || event.key == 'R') {
-        if (isHorizontal) {
-          submarino.classList.toggle('submarino-container-vertical')
-          contra_torpedeiro.classList.toggle('contra-torpedeiro-container-vertical')
-          navios_tanque.classList.toggle('navios-tanque-container-vertical')
-          porta_avioe.classList.toggle('porta-avioe-container-vertical')
-          isHorizontal = false
-          return
-        }
-        if (!isHorizontal) {
-          submarino.classList.toggle('submarino-container-vertical')
-          contra_torpedeiro.classList.toggle('contra-torpedeiro-container-vertical')
-          navios_tanque.classList.toggle('navios-tanque-container-vertical')
-          porta_avioe.classList.toggle('porta-avioe-container-vertical')
-          isHorizontal = true
-          return
-        }
-      }
-    })
-
   //Rotacionar os navios
   function rotate() {
     if (isHorizontal) {
       submarino.classList.toggle('submarino-container-vertical')
-      contra_torpedeiro.classList.toggle('contra-torpedeiro-container-vertical')
-      navios_tanque.classList.toggle('navios-tanque-container-vertical')
-      porta_avioe.classList.toggle('porta-avioe-container-vertical')
+      contratorpedeiross.classList.toggle('contra-torpedeiros-container-vertical')
+      cruiser.classList.toggle('cruiser-container-vertical')
+      navio_tanque.classList.toggle('navio-tanque-container-vertical')
+      porta_avioes.classList.toggle('porta-avioes-container-vertical')
       isHorizontal = false
       return
     }
     if (!isHorizontal) {
       submarino.classList.toggle('submarino-container-vertical')
-      contra_torpedeiro.classList.toggle('contra-torpedeiro-container-vertical')
-      navios_tanque.classList.toggle('navios-tanque-container-vertical')
-      porta_avioe.classList.toggle('porta-avioe-container-vertical')
+      contratorpedeiross.classList.toggle('contra-torpedeiros-container-vertical')
+      cruiser.classList.toggle('cruiser-container-vertical')
+      navio_tanque.classList.toggle('navio-tanque-container-vertical')
+      porta_avioes.classList.toggle('porta-avioes-container-vertical')
       isHorizontal = true
       return
     }
   }
-
   rotateButton.addEventListener('click', rotate)
+
+  function chat(texto, cor=-1) {
+       let item = document.createElement('option')
+       item.text = texto
+       switch (cor) {
+        case -1:
+          item.style.color = 'black'
+          break;
+        case 0:
+          item.style.color = 'blue'
+          break;
+        case 1:
+          item.style.color = 'red'
+          break;
+       }
+       caixachat.appendChild(item)
+       caixachat.scrollTop = caixachat.scrollHeight;
+  }
 
   //Mover o navio do usuario (arrastar)
   ships.forEach(ship => ship.addEventListener('dragstart', dragStart))
@@ -327,9 +329,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const obj = Object.values(classList)
     if (!enemySquare.classList.contains('acertou') && jogadorAtual === 'user' && !isGameOver) {
       if (obj.includes('submarino')) ++submarinoCount
-      if (obj.includes('contra_torpedeiro')) ++contra_torpedeiroCount
-      if (obj.includes('navios_tanque')) ++navios_tanqueCount
-      if (obj.includes('porta_avioe')) ++porta_avioeCount
+      if (obj.includes('contra-torpedeiros')) ++contratorpedeirossCount
+      if (obj.includes('cruiser')) ++cruiserCount
+      if (obj.includes('navio-tanque')) ++navio_tanqueCount
+      if (obj.includes('porta_avioes')) ++porta_avioesCount
     }
     if (obj.includes('taken')) {
       enemySquare.classList.add('acertou')
@@ -343,18 +346,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let oponentSubmarinoCount = 0
-  let oponentContra_torpedeiroCount = 0
-  let oponentNavios_tanqueCount = 0
-  let oponentPorta_avioeCount = 0
+  let oponentContratorpedeirosCount = 0
+  let oponentCruiserCount = 0
+  let oponentNavio_tanqueCount = 0
+  let oponentPorta_avioesCount = 0
 
   function vezOponente(square) {
     if (!userSquares[square].classList.contains('acertou')) {
       const hit = userSquares[square].classList.contains('taken')
       userSquares[square].classList.add(hit ? 'acertou' : 'errou')
       if (userSquares[square].classList.contains('submarino')) ++oponentSubmarinoCount
-      if (userSquares[square].classList.contains('contra_torpedeiro')) ++oponentContra_torpedeiroCount
-      if (userSquares[square].classList.contains('navios_tanque')) ++oponentNavios_tanqueCount
-      if (userSquares[square].classList.contains('porta_avioe')) ++oponentPorta_avioeCount
+      if (userSquares[square].classList.contains('contra-torpedeiros')) ++oponentContratorpedeirosCount
+      if (userSquares[square].classList.contains('cruiser')) ++oponentCruiserCount
+      if (userSquares[square].classList.contains('navio-tanque')) ++oponentNavio_tanqueCount
+      if (userSquares[square].classList.contains('porta-avioes')) ++oponentPorta_avioesCount
       checarPorVitorias()
     }
     const hit = userSquares[square].classList.contains('taken')
@@ -367,40 +372,40 @@ document.addEventListener('DOMContentLoaded', () => {
       infoDisplay.innerHTML = `Você afundou o submarino do oponente`
       submarinoCount = 10
     }
-    if (contra_torpedeiroCount === 3) {
-      infoDisplay.innerHTML = `Você afundou o submarino do oponente`
-      contra_torpedeiroCount = 10
+    if (contratorpedeirossCount === 3) {
+      infoDisplay.innerHTML = `Você afundou o contra-torpedeiro do oponente`
+      contratorpedeirossCount = 10
     }
-    if (navios_tanqueCount === 4) {
-      infoDisplay.innerHTML = `Você afundou o navio de batalha do oponente`
-      navios_tanqueCount = 10
+    if (navio_tanqueCount === 4) {
+      infoDisplay.innerHTML = `Você afundou o navio-tanque do oponente`
+      navio_tanqueCount = 10
     }
-    if (porta_avioeCount === 5) {
+    if (porta_avioesCount === 5) {
       infoDisplay.innerHTML = `Você afundou o porta-aviões do oponente`
-      porta_avioeCount = 10
+      porta_avioesCount = 10
     }
     if (oponentSubmarinoCount === 2) {
       infoDisplay.innerHTML = `O oponente afundou seu submarino`
       oponentSubmarinoCount = 10
     }
-    if (oponentContra_torpedeiroCount === 3) {
-      infoDisplay.innerHTML = `O oponente afundou seu submarino`
-      oponentContra_torpedeiroCount = 10
+    if (oponentContratorpedeirosCount === 3) {
+      infoDisplay.innerHTML = `O oponente afundou seu contra-torpedeiros`
+      oponentContratorpedeirosCount = 10
     }
-    if (oponentNavios_tanqueCount === 4) {
-      infoDisplay.innerHTML = `O oponente afundou seu navio de batalha`
-      oponentNavios_tanqueCount = 10
+    if (oponentNavio_tanqueCount === 4) {
+      infoDisplay.innerHTML = `O oponente afundou seu navio-tanque`
+      oponentNavio_tanqueCount = 10
     }
-    if (oponent_orta_avioeCount === 5) {
+    if (oponentPorta_avioesCount === 5) {
       infoDisplay.innerHTML = `O oponente afundou seu porta-aviões`
-      oponentPorta_avioeCount = 10
+      oponentPorta_avioesCount = 10
     }
 
-    if ((submarinoCount + contra_torpedeiroCount + navios_tanqueCount + porta_avioeCount) === 40) {
+    if ((submarinoCount + contratorpedeirossCount + navio_tanqueCount + porta_avioesCount) === 40) {
       infoDisplay.innerHTML = "Você venceu! (Atualize a página para jogar novamente)"
       gameOver()
     }
-    if ((oponentSubmarinoCount + oponentContra_torpedeiroCount + oponentNavios_tanqueCount + oponentPorta_avioeCount) === 40) {
+    if ((oponentSubmarinoCount + oponentContratorpedeirosCount + oponentNavio_tanqueCount + oponentPorta_avioesCount) === 40) {
       infoDisplay.innerHTML = `Você perdeu, mais sorte na próxima (Atualize a página para jogar novamente)`
       podeWO = false
       gameOver()
@@ -422,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function wo() {
     console.log("WO")
     infoDisplay.innerHTML = "Você venceu por W.O. (Atualize a página para jogar novamente)"
-    infoDisplay2.innerHTML = "o outro jogador saiu.."
+    chat("o outro jogador saiu..")
     setupButtons.style.display = 'none'
     gameOver()
   }
