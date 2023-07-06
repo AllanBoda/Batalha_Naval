@@ -400,11 +400,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if ((submarinoCount + contratorpedeirosCount + navio_tanqueCount + porta_avioesCount) === 40) {
-      infoDisplay.innerHTML = `Você venceu! (Atualize a página para jogar novamente)`
+      infoDisplay.innerHTML = `Você venceu!`
       gameOver()
     }
     if ((oponentSubmarinoCount + oponentContratorpedeirosCount + oponentNavio_tanqueCount + oponentPorta_avioesCount) === 40) {
-      infoDisplay.innerHTML = `Você perdeu, mais sorte na próxima (Atualize a página para jogar novamente)`
+      infoDisplay.innerHTML = `Você perdeu, mais sorte na próxima`
       podeWO = false
       gameOver()
     }
