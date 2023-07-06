@@ -5,7 +5,6 @@
     <title>Batalha Naval</title>
     <link rel="stylesheet" href="style.css">
     <script src="app.js" charset="utf-8"></script>
-    <script src="drag.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="container">
@@ -21,31 +20,31 @@
         <div class="ready">Pronto</div>
       </div>
     </div>
-    <div class="container">  
 
-      <div class="battleship-grid grid-user">
+    <div class="container">
+      <div class="battleship-grid grid-user"></div>
+      <div class="battleship-grid grid-computer"></div>
+      <div>
+        <div class="chat" name="chat" id="chat"></div>
       </div>
-      <div class="battleship-grid grid-computer">
-      </div>
-      
     </div>
 
     <div class="container hidden-info">
       <div class="setup-buttons" id="setup-buttons">
         <button id="start" class="btn">Iniciar Jogo</button>
-        <button id="rotate" class="btn">Rotacionar (R)</button>
+        <button id="rotate" class="btn">Rotacionar</button>
       </div>
       <h3 id="whose-go" class="info-text"></h3>
       <h3 id="info" class="info-text"></h3>
-      <h1 id="info2" class="info-text"></h1>
     </div>
-<div class="container">
-    <div class="grid-display">
-      <div class="ship submarino-container" draggable="true"><div id="submarino-0"></div><div id="submarino-1"></div></div>
-      <div class="ship contra-torpedeiro-container" draggable="true"><div id="contra-torpedeiro-0"></div><div id="contra-torpedeiro-1"></div><div id="contra-torpedeiro-2"></div></div>
-      <div class="ship navios-tanque-container" draggable="true"><div id="navios-tanque-0"></div><div id="navios-tanque-1"></div><div id="navios-tanque-2"></div><div id="navios-tanque-3"></div></div>
-      <div class="ship porta-avioe-container" draggable="true"><div id="porta-avioe-0"></div><div id="porta-avioe-1"></div><div id="porta-avioe-2"></div><div id="porta-avioe-3"></div><div id="porta-avioe-4"></div></div>
+
+    <div class="container">
+      <div class="grid-display">
+        <div class="ship submarino-container" draggable="true"><div id="submarino-0"></div><div id="submarino-1"></div></div>
+        <div class="ship contra-torpedeiros-container" draggable="true"><div id="contra-torpedeiros-0"></div><div id="contra-torpedeiros-1"></div><div id="contra-torpedeiros-2"></div></div>
+        <div class="ship navio-tanque-container" draggable="true"><div id="navio-tanque-0"></div><div id="navio-tanque-1"></div><div id="navio-tanque-2"></div><div id="navio-tanque-3"></div></div>
+        <div class="ship porta-avioes-container" draggable="true"><div id="porta-avioes-0"></div><div id="porta-avioes-1"></div><div id="porta-avioes-2"></div><div id="porta-avioes-3"></div><div id="porta-avioes-4"></div></div>
+      </div>
     </div>
-</div>    
   </body>
 </html>
